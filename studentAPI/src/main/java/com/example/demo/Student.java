@@ -1,9 +1,15 @@
 package com.example.demo;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 public class Student {
     private Long id;
+
+    @NotBlank(message = "Name cannot be blank")
     private String name;
+
+    @Min(value = 0, message = "Age must be non-negative")
     private int age;
 
     public Student() {
