@@ -7,20 +7,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
+    private final StudentRepository studentRepo;
+
     private final List<Student> students = new ArrayList<>();
 
-    public StudentService(){
-        students.add(new Student(1L, "Alice", 20));
-        students.add(new Student(2L, "Brayan", 19));
+    public StudentService(StudentRepository studentRepo){
+        this.studentRepo = studentRepo;
 
     }
 
     public List<Student> getAllStudents(){
-        return students;
+        return studentRepo.findAll();
     }
 
     public void addStudent(Student student) {
-        students.add(student);
+        studentRepo.save(student);
     }
 
 }
