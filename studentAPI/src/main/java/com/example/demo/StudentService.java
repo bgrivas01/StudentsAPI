@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,11 @@ public class StudentService {
         studentRepo.save(student);
     }
 
+    public Optional<Student> getStudentById(Long id){
+        return studentRepo.findById(id);
+    }
+
+    public void deleteStudentById(Long id){
+        studentRepo.deleteById(id);
+    }
 }
