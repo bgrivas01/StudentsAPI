@@ -32,4 +32,14 @@ public class StudentService {
     public void deleteStudentById(Long id){
         studentRepo.deleteById(id);
     }
+
+    public Student updateStudent(Long id, StudentUpdateRequest request) {
+        Student student = studentRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+            student.setName(request.getName());
+            student.setEmail(request.getEmail());
+
+            return studentRepo.save(student);
+    }
 }

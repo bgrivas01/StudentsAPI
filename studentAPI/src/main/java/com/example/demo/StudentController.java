@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -41,6 +43,11 @@ public class StudentController {
     @DeleteMapping("/students/{id}")
     public void deleteStudentById(@PathVariable Long id){
         studentService.deleteStudentById(id);
+    }
+
+    @PutMapping("/students/{id}")
+    public Student updateStudent(@PathVariable Long id, @RequestBody StudentUpdateRequest request) {
+        return studentService.updateStudent(id, request);
     }
     
 
