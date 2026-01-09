@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Exception.ApiRequestException;
+
 @Service
 public class StudentService {
     private final StudentRepository studentRepo;
@@ -35,7 +37,7 @@ public class StudentService {
 
     public Student updateStudent(Long id, StudentUpdateRequest request) {
         Student student = studentRepo.findById(id)
-            .orElseThrow(() -> new RuntimeException("Student not found"));
+            .orElseThrow(() -> new ApiRequestException("Student not found"));
 
             student.setName(request.getName());
             student.setEmail(request.getEmail());
