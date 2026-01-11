@@ -2,8 +2,11 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Exception.ApiRequestException;
@@ -27,15 +30,16 @@ public class StudentService {
         studentRepo.save(student);
     }
 
-    public Optional<Student> getStudentById(Long id){
-        return studentRepo.findById(id);
+    public Student getStudentById(Long id){
+        return studentRepo.findById(id)
+            .orElseThrow(() -> new ApiRequestException("Student with id of " + id + " not found"));
     }
 
     public void deleteStudentById(Long id){
         studentRepo.deleteById(id);
     }
 
-    public Student updateStudent(Long id, StudentUpdateRequest request) {
+    public Student updateStudent(Long id, StudentUpdateRequest request){
         Student student = studentRepo.findById(id)
             .orElseThrow(() -> new ApiRequestException("Student not found"));
 
@@ -44,4 +48,16 @@ public class StudentService {
 
             return studentRepo.save(student);
     }
+     public Page<Student> getStudents(int page, int size, String sortBy){
+
+        Pageable pageable = PageRequest.of(
+            page, 
+            size, 
+            Sort.by(sortBy)
+        );
+        return studentRepo.findAll(pageable);
+    }
+   
 }
+
+

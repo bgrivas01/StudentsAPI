@@ -19,7 +19,7 @@ public class ApiException {
         this.timestamp = timestamp;
     }
 
-    //getters and setters
+    //getters 
     public String getMesage() {
         return mesage;
     }
