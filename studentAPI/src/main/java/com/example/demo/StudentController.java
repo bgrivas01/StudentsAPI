@@ -57,7 +57,16 @@ public class StudentController {
         @RequestParam(defaultValue = "5") int size,
         @RequestParam(defaultValue = "id") String sortBy
     ) {
-        return studentService.getStudents(page, size, sortBy);
+        return studentService.getStudents(page, size, "name");
     }
 
+    @GetMapping("/students/email")
+    public Student getStudentByEmail(@RequestParam String email){
+        return studentService.getStudentByEmail(email);
+    }
+
+    @GetMapping("students/name")
+    public Student getStudentByName(@RequestParam String name){
+        return studentService.getStudentByName(name);
+    }
 }

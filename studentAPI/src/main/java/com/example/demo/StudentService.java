@@ -48,6 +48,18 @@ public class StudentService {
 
             return studentRepo.save(student);
     }
+
+    public Student getStudentByEmail(String email){
+        return studentRepo.findByEmail(email)
+            .orElseThrow(() -> new ApiRequestException("Student with email " + email + " not found"));
+    }
+
+    public Student getStudentByName(String name){
+        return studentRepo.findByName(name)
+            .orElseThrow(() -> new ApiRequestException("Student with name " + name + " not found"));
+    }
+
+    //pagination--------------------------------------------------
      public Page<Student> getStudents(int page, int size, String sortBy){
 
         Pageable pageable = PageRequest.of(
