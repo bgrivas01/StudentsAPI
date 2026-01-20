@@ -30,9 +30,10 @@ public class StudentService {
         studentRepo.save(student);
     }
 
-    public Student getStudentById(Long id){
-        return studentRepo.findById(id)
+    public StudentResponse getStudentById(Long id){
+        Student student = studentRepo.findById(id)
             .orElseThrow(() -> new ApiRequestException("Student with id of " + id + " not found"));
+        return StudentMapper.toResponse(student);
     }
 
     public void deleteStudentById(Long id){
@@ -60,14 +61,15 @@ public class StudentService {
     }
 
     //pagination--------------------------------------------------
-     public Page<Student> getStudents(int page, int size, String sortBy){
+     public Page<StudentResponse> getStudents(int page, int size, String sortBy){
 
         Pageable pageable = PageRequest.of(
             page, 
             size, 
             Sort.by(sortBy)
         );
-        return studentRepo.findAll(pageable);
+        return studentRepo.findAll(pageable)
+            .map(StudentMapper::toResponse);
     }
    
 }

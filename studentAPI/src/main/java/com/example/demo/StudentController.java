@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public Student getStudentById(@PathVariable Long id){
+    public StudentResponse getStudentById(@PathVariable Long id){
         return studentService.getStudentById(id);
     } 
     
@@ -52,12 +52,13 @@ public class StudentController {
     }
 
     @GetMapping("/students/paginated")
-    public Page<Student> getStudents(
+    public Page<StudentResponse> getStudents(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "5") int size,
         @RequestParam(defaultValue = "id") String sortBy
     ) {
         return studentService.getStudents(page, size, "name");
+            
     }
 
     @GetMapping("/students/email")
